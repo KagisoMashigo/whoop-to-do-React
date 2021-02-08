@@ -1,67 +1,58 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const bcrypt = require("bcrypt");
-const { addUser, getUserByEmail } = require("../helpers/dbHelpers");
 
-module.exports = (db) => {
-  // Register Route
-  router.post("/", (req, res) => {
-    const { first_name, email, password } = req.body;
-    const hashedPassword = bcrypt.hashSync(password, 12);
+module.exports = ({
+    getUsers,
+    getUserByEmail,
+    addUser,
+    getUsersPosts
+}) => {
+    /* GET users listing. */
+    router.get('/', (req, res) => {
+        getUsers()
+            .then((users) => res.json(users))
+            .catch((err) => res.json({
+                error: err.message
+            }));
+    });
 
-    getUserByEmail(email, db)
-      .then((userInfo) => {
-        if (!email || !password || !first_name) {
-          const valError = "you're missing a field";
-          res.send(valError);
-        } else if (userInfo.rows.length !== 0) {
-          const userError = "that email is taken";
-          res.send(userError);
-        } else {
-          addUser(first_name, email, hashedPassword, db).then((newUser) => {
-            const user = newUser.rows[0];
-            req.session["user_id"] = user.id;
-            const userId = user.id;
-            res.send({ userId });
-          });
-        }
-      })
-      .catch((err) => {
-        res.status(500).json({ error: err.message });
-      });
-  });
+    router.get('/posts', (req, res) => {
+        getUsersPosts()
+            .then((usersPosts) => {
+                const formattedPosts = getPostsByUsers(usersPosts);
+                res.json(formattedPosts);
+            })
+            .catch((err) => res.json({
+                error: err.message
+            }));
+    });
 
-  // Login Route
-  router.post("/login", (req, res) => {
-    const { email, password } = req.body;
+    router.post('/', (req, res) => {
 
-    getUserByEmail(email, db)
-      .then((userInfo) => {
-        if (userInfo.rows.length === 0) {
-          const emailError = "that email doesn't exist";
-          res.send(emailError);
-        } else if (!bcrypt.compareSync(password, userInfo.rows[0].password)) {
-          const passError = "that password is incorrect";
-          res.send(passError);
-        } else {
-          const user = userInfo.rows[0];
-          req.session.userId = user.id;
-          const userId = user.id;
-          res.send({ userId });
-        }
-      })
-      .catch((err) => {
-        if (err) {
-          res.status(401).json({ error: err.message });
-        }
-      });
-  });
+        const {
+            username,
+            email,
+            password
+        } = req.body;
 
-  // Logout Route
-  router.get("/logout", (req, res) => {
-    req.session = null;
-    res.send(`logout route`);
-  });
+        getUserByEmail(email)
+            .then(user => {
 
-  return router;
+                if (user) {
+                    res.json({
+                        msg: 'Sorry, a user account with this email already exists'
+                    });
+                } else {
+                    return addUser(first_name, last_name, email, password)
+                }
+
+            })
+            .then(newUser => res.json(newUser))
+            .catch(err => res.json({
+                error: err.message
+            }));
+
+    })
+
+    return router;
 };
