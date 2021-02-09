@@ -12,6 +12,10 @@ const App = () => {
     <h1> Users </h1>
 
     <ul> {userList} </ul>
+
+    <h1> Categories </h1>
+
+    <ul> List </ul>
   </div >
   );
 };
