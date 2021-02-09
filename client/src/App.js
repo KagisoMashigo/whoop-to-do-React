@@ -18,7 +18,7 @@ const App = () => {
 
     <h1> Lists </h1>
 
-    <ul> List </ul>
+    {/* <ul> {lists} </ul> */}
   </div >
   );
 };
