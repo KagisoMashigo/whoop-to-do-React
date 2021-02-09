@@ -16,11 +16,11 @@ module.exports = ({
             }));
     });
 
-    router.get('/', (req, res) => {
+    router.get('/lists', (req, res) => {
         getUsersLists()
             .then((usersLists) => {
                 // const formattedPosts = getPostsByUsers(usersPosts);
-                res.json(usersLists);
+                console.log(usersLists);
             })
             .catch((err) => res.json({
                 error: err.message
