@@ -8,10 +8,12 @@ import dataReducer, {
 import axios from 'axios';
 
 const useApplicationData = () => {
+
   const [state, dispatch] = useReducer(dataReducer, {
       users: [],
       loading: true,
   });
+  
   useEffect(() => {
       axios({
               method: 'GET',

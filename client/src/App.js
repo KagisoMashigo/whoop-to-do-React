@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import useApplicationData from "./hooks/useApplicationData"
 
@@ -7,7 +6,7 @@ const App = () => {
         state,
         dispatch
     } = useApplicationData();
-      const userList = state.users.map((user) => (<li key={user.id} > {user.username} {user.email} </li>
+      const userList = state.users.map((user) => (<li key={user.id} > User Name: {user.username} / User Email: {user.email} </li>
   ));
   return (<div className="App" >
     <h1> Users </h1>
