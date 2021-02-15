@@ -8,17 +8,17 @@ const App = () => {
     } = useApplicationData();
     const userList = state.users.map((user) => (<li key={user.id} > User Name: {user.username} / User Email: {user.email} </li>   
   ));
-  //   const lists = state.lists.map((list) => (<li key={list.id} > User Name: {list.username} / User Email: {list.email} </li>   
-  // ));
+    const todosList = state.todos.map((todo) => (<li key={todo.id} > Todo: {todo.title} / Description: {todo.description} </li>   
+  ));
 
   return (<div className="App" >
     <h1> Users </h1>
 
     <ul> {userList} </ul>
 
-    <h1> Lists </h1>
+    <h1> Todos </h1>
 
-    {/* <ul> {lists} </ul> */}
+    <ul> {todosList} </ul>
   </div >
   );
 };
