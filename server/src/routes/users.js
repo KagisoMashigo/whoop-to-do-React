@@ -5,7 +5,7 @@ module.exports = ({
     getUsers,
     getUserByEmail,
     addUser,
-    getUsersLists
+    getUsersTodos
 }) => {
     /* GET users listing. */
     router.get('/', (req, res) => {
@@ -17,13 +17,13 @@ module.exports = ({
     });
 
     router.get('/lists', (req, res) => {
-        getUsersLists()
+        getUsersTodos()
             .then((usersLists) => {
                 // const formattedPosts = getPostsByUsers(usersPosts);
-                console.log(usersLists);
+                console.log("TODOS", usersLists);
             })
             .catch((err) => res.json({
-                error: err.message
+                error: console.log(err.message)
             }));
     });
 
