@@ -34,12 +34,9 @@ module.exports = (db) => {
             .catch(err => err);
     }
 
-    const getUsersLists = () => {
+    const getUsersTodos = () => {
         const query = {
-            text: `SELECT users.id as user_id, username, email, lists.id as list_id, title,
-        FROM users
-        INNER JOIN lists
-        ON users.id = lists.user_id`
+            text: `SELECT * from todos`
         }
 
         return db.query(query)
@@ -52,6 +49,6 @@ module.exports = (db) => {
         getUsers,
         getUserByEmail,
         addUser,
-        getUsersLists
+        getUsersTodos
     };
 };
