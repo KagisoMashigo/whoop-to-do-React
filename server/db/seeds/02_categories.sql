@@ -1,8 +1,8 @@
- INSERT INTO categories (category)
+INSERT INTO categories (category)
 VALUES ('movies');
 INSERT INTO categories (category)
 VALUES ('restaurants');
 INSERT INTO categories (category)
-VALUES ('products');
+VALUES ('purchases');
 INSERT INTO categories (category)
-VALUES ('books');
+VALUES ('articles');

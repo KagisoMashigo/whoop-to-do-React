@@ -1,8 +1,14 @@
 DROP TABLE IF EXISTS lists CASCADE;
+
 CREATE TABLE lists (
   id SERIAL PRIMARY KEY NOT NULL,
   title VARCHAR(255) NOT NULL,
-  public BOOlEAN DEFAULT FALSE,
-  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
-  category_id INTEGER REFERENCES categories(id) ON DELETE CASCADE
+  description TEXT,
+  creation_date DATE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  start_date DATE,
+  end_date DATE,
+  priority INTEGER NOT NULL DEFAULT 4,
+  complete BOOLEAN NOT NULL DEFAULT FALSE,
+  todo_id INTEGER REFERENCES todos(id),
+  category_id INTEGER REFERENCES categories(id) ON DELETE CASCADE NOT NULL
 );
