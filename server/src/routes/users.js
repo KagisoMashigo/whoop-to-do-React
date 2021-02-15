@@ -16,11 +16,12 @@ module.exports = ({
             }));
     });
 
-    router.get('/lists', (req, res) => {
+    router.get('/todos', (req, res) => {
         getUsersTodos()
-            .then((usersLists) => {
+            .then((usersTodos) => {
                 // const formattedPosts = getPostsByUsers(usersPosts);
-                console.log("TODOS", usersLists);
+                // console.log("TODOS", usersLists);
+                res.json(usersTodos)
             })
             .catch((err) => res.json({
                 error: console.log(err.message)
