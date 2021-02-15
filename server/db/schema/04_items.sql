@@ -1,8 +1,0 @@
-DROP TABLE IF EXISTS items CASCADE;
-CREATE TABLE items (
-  id SERIAL PRIMARY KEY NOT NULL,
-  name VARCHAR(255) NOT NULL,
-  description VARCHAR(255) NOT NULL,
-  favourite BOOLEAN default false,
-  list_id INTEGER REFERENCES lists(id) ON DELETE CASCADE
-);
