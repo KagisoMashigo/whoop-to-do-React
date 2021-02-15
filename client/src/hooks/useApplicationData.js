@@ -4,7 +4,7 @@ import {
 } from 'react';
 import dataReducer, {
   SET_USERS, 
-  SET_LISTS
+  SET_TODOS
 } from './reducer.js';
 import axios from 'axios';
 
@@ -12,6 +12,7 @@ const useApplicationData = () => {
 
   const [state, dispatch] = useReducer(dataReducer, {
       users: [],
+      todos: [],
       loading: true,
   });
   
@@ -19,15 +20,15 @@ const useApplicationData = () => {
   useEffect(() => {
       axios({
               method: 'GET',
-              url: '/api/users/lists',
+              url: '/api/users/todos',
           })
           .then(({
               data
           }) => {
-              console.log(data);
+            //   console.log("TODOS", data);
               dispatch({
-                  type: SET_USERS,
-                  users: data
+                  type: SET_TODOS,
+                  todos: data
               });
           })
           .catch((err) => console.log(err));
@@ -42,7 +43,7 @@ const useApplicationData = () => {
         .then(({
             data
         }) => {
-            console.log(data);
+            // console.log(data);
             dispatch({
                 type: SET_USERS,
                 users: data
